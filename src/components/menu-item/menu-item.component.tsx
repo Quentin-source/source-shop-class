@@ -1,15 +1,11 @@
 //Setup
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
-//styles
-import './menu-item-styles.scss';
+//Interface
+import { MenuItemProps } from './menu-item.interface';
 
-interface MenuItemProps {
-  title: string;
-  imageUrl: string;
-  size?: string;
-  linkUrl: string;
-}
+//styles
+import './menu-item.styles.scss';
 
 const MenuItem = ({
   title,
