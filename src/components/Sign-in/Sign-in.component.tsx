@@ -7,6 +7,10 @@ import { IState, IProps } from './Sign-in.interface';
 //Components
 import FormInput from '../Form-input/Form-input.component';
 
+//Styles
+import './Sign-in.styles.scss';
+import CustomButton from '../Custom-button/Custom-button.component';
+
 export default class SignIn extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
@@ -50,7 +54,7 @@ export default class SignIn extends React.Component<IProps, IState> {
             required
             handleChange={this.handleChange}
           />
-          <input type="submit" value="Submit Form" />
+          <CustomButton type="submit" value="Submit Form" >Signin</CustomButton>
         </form>
       </div>
     );
