@@ -2,8 +2,9 @@
 import { Route, Switch } from 'react-router-dom';
 
 //Pages
-import HomePage from './pages/homepage/homepage.component';
-import ShopPage from './pages/shop/shop.component';
+import homepage from './pages/homepage/homepage.component';
+import shoppage from './pages/shop/shop.component';
+import signpage from './pages/signpage/signpage.component';
 
 //Component
 import Header from './components/Header/Header.component';
@@ -16,9 +17,10 @@ function App() {
     <>
       <Header />
       <Switch>
-        <Route component={HomePage} exact path="/" />
-        <Route component={ShopPage} exact path="/shop" />
-        <Route component={HomePage} />
+        <Route component={homepage} exact path="/" />
+        <Route component={shoppage} exact path="/shop" />
+        <Route component={signpage} exact path="/sign" />
+        <Route component={homepage} />
       </Switch>
     </>
   );
