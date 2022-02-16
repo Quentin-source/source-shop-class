@@ -2,28 +2,28 @@
 import React from 'react';
 
 //Datas
-import { SectionsDatas } from '../../datas/sections';
+import SECTIONS_DATA from '../../datas/sections.data';
 
 //Components
-import MenuItem from '../menu-item/menu-item.component';
+import MenuItem from '../Menu-item/Menu-item.component';
 
 //Interfaces
-import {IProps, IState} from './directory.interface';
+import {IProps, IState} from './Directory.interface';
 
 //Styles
-import './directory.styles.scss';
+import './Directory.styles.scss';
 
 
 class Directory extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
-    this.state = SectionsDatas;
+    this.state = SECTIONS_DATA;
   }
 
   render() {
     return (
       <div className="directory-menu">
-        {this.state.sections.map(({ id, ...othersProps }) => {
+        {this.state.map(({ id, ...othersProps }) => {
           return <MenuItem key={id} {...othersProps} />;
         })}
       </div>

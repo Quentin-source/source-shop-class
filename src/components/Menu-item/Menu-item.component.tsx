@@ -2,10 +2,10 @@
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 //Interface
-import { MenuItemProps } from './menu-item.interface';
+import { MenuItemProps } from './Menu-item.interface';
 
 //styles
-import './menu-item.styles.scss';
+import './Menu-item.styles.scss';
 
 const MenuItem = ({
   title,

@@ -2,12 +2,12 @@
 import { RouteComponentProps } from 'react-router-dom';
 
 //Component
-import Directory from '../../components/directory/directory.component';
+import Directory from '../../components/Directory/Directory.component';
 
 //styles
 import './homepage.styles.scss';
 
-const Homepage = (props: RouteComponentProps) => {
+const HomePage = (props: RouteComponentProps) => {
   return (
     <div className="homepage">
       <Directory />
@@ -15,4 +15,4 @@ const Homepage = (props: RouteComponentProps) => {
   );
 };
 
-export default Homepage;
+export default HomePage;
