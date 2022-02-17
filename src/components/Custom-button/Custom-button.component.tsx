@@ -7,9 +7,9 @@ import { IProps } from './Custom-button.interface';
 //Styles
 import './Custom-button.styles.scss';
 
-const CustomButton: FC<IProps> = ({ children, ...otherProps }) => {
+const CustomButton: FC<IProps> = ({ children, isGoogleSignIn, ...otherProps }) => {
   return (
-    <button className="custom-button" {...otherProps}>
+    <button className={`${isGoogleSignIn && 'google-sign-in'} custom-button`} {...otherProps}>
       {children}
     </button>
   );

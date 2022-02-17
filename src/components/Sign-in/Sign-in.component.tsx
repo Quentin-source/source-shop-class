@@ -6,6 +6,7 @@ import { IState, IProps } from './Sign-in.interface';
 
 //Components
 import FormInput from '../Form-input/Form-input.component';
+import { signInWithGoogle } from '../../firebase/firebase.utils';
 
 //Styles
 import './Sign-in.styles.scss';
@@ -26,7 +27,6 @@ export default class SignIn extends React.Component<IProps, IState> {
   };
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.name);
     const { name, value } = event.target;
     this.setState({ [name]: value } as Pick<IState, keyof IState>);
   };
@@ -54,7 +54,14 @@ export default class SignIn extends React.Component<IProps, IState> {
             required
             handleChange={this.handleChange}
           />
-          <CustomButton type="submit" value="Submit Form" >Signin</CustomButton>
+          <div className="buttons">
+            <CustomButton type="submit" value="Submit Form">
+              Sign in
+            </CustomButton>
+            <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
+              Sign in with Google
+            </CustomButton>
+          </div>
         </form>
       </div>
     );

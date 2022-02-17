@@ -14,13 +14,13 @@ export default class ShopPage extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
 
-    this.state = SHOP_DATA;
+    this.state = {shop : SHOP_DATA} ;
   }
 
   render(): React.ReactNode {
     return (
       <div className="shop-page">
-        {this.state.map(({ id, ...otherProps }) => (
+        {this.state.shop.map(({ id, ...otherProps }) => (
           <CollectionPreview key={id} {...otherProps} />
         ))}
       </div>

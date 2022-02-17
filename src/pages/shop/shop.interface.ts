@@ -1,13 +1,15 @@
 export interface IProps {}
 
-export type IState = {
-  id: number;
-  title: string;
-  routeName: string;
-  items: {
+export interface IState {
+  shop : {
     id: number;
-    name: string;
-    imageUrl: string;
-    price: number;
+    title: string;
+    routeName: string;
+    items: {
+      id: number;
+      name: string;
+      imageUrl: string;
+      price: number;
+    }[];
   }[];
-}[];
+}
