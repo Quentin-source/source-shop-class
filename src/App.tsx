@@ -3,8 +3,10 @@ import { Route, Switch } from 'react-router-dom';
 
 //Firebase
 import { auth } from './firebase/firebase.utils';
-import firebase from 'firebase/compat';
 import { createUserProfileDocument } from './firebase/firebase.utils';
+
+//Interface
+import { IProps, IState } from './interfaces/app.interface';
 
 //Pages
 import homepage from './pages/homepage/homepage.component';
@@ -17,12 +19,6 @@ import Header from './components/Header/Header.component';
 //Styles
 import './App.css';
 import React from 'react';
-
-interface IProps {}
-interface IState extends firebase.firestore.DocumentData {
-  id?: string;
-  currentUser: firebase.User | null;
-}
 
 class App extends React.Component<IProps, IState> {
   constructor(props: IProps) {
