@@ -4,21 +4,15 @@ import React from 'react';
 //Firebase
 import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
 
-// Componenet
+// Component
 import CustomButton from '../Custom-button/Custom-button.component';
 import FormInput from '../Form-input/Form-input.component';
 
+//Interface
+import { IProps, IState } from './Sign-up.interface';
+
 //Styles
 import './Sign-up.styles.scss';
-
-interface IProps {}
-
-interface IState {
-  displayName: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
 
 export default class SignUp extends React.Component<IProps, IState> {
   constructor(props: IProps) {
