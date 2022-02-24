@@ -14,7 +14,7 @@ const config = {
 
 export const createUserProfileDocument = async (
   userAuth: firebase.User,
-  additionalData?: String
+  additionalData?: Object
 ) => {
   if (!userAuth) return;
 
