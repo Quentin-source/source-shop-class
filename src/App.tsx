@@ -51,6 +51,7 @@ class App extends React.Component<IProps, IState> {
   }
 
   render() {
+    console.log(this.state);
     return (
       <>
         <Header currentUser={this.state.currentUser} />
