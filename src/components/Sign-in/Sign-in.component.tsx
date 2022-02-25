@@ -6,7 +6,9 @@ import { IState, IProps } from './Sign-in.interface';
 
 //Components
 import FormInput from '../Form-input/Form-input.component';
-import { signInWithGoogle } from '../../firebase/firebase.utils';
+
+//Firebase
+import { auth, signInWithGoogle } from '../../firebase/firebase.utils';
 
 //Styles
 import './Sign-in.styles.scss';
@@ -22,8 +24,16 @@ export default class SignIn extends React.Component<IProps, IState> {
     };
   }
 
-  handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const { email, password } = this.state;
+
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+      this.setState({ email: '', password: '' });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
