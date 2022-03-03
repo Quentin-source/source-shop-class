@@ -1,3 +1,5 @@
-export interface IState{
-    currenUser : any;
+import { User } from "@firebase/auth-types";
+
+export interface IProps{
+    currentUser : null | User;
 }

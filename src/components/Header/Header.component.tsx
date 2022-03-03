@@ -1,7 +1,12 @@
 //Setup
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-//Firevase
+//Interface
+import { IRootReducer } from '../../redux/reducer.interface';
+import { IProps } from './Header.interface';
+
+//Firebase
 import { auth } from '../../firebase/firebase.utils';
 
 //Assets
@@ -10,7 +15,7 @@ import { ReactComponent as Logo } from '../../assets/images/crown.svg';
 //Styles
 import './Header.styles.scss';
 
-const Header = ({ currentUser }: any) => {
+const Header = ({currentUser}: IProps) => {
   return (
     <div className="header">
       <Link className="logo-container" to="/">
@@ -37,4 +42,8 @@ const Header = ({ currentUser }: any) => {
   );
 };
 
-export default Header;
+const mapStateToProps = (state: IRootReducer) => ({
+  currentUser: state.user.currentUser,
+});
+
+export default connect(mapStateToProps)(Header);

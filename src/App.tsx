@@ -1,12 +1,17 @@
 //Setup
+import React from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
+import store from './redux/store';
 
 //Firebase
 import { auth } from './firebase/firebase.utils';
 import { createUserProfileDocument } from './firebase/firebase.utils';
 
 //Interface
-import { IProps, IState } from './interfaces/app.interface';
+import { IProps } from './interfaces/app.interface';
+import { IUser } from './interfaces/app.interface';
+import { User } from '@firebase/auth-types';
 
 //Pages
 import homepage from './pages/homepage/homepage.component';
@@ -16,33 +21,29 @@ import signpage from './pages/signpage/signpage.component';
 //Component
 import Header from './components/Header/Header.component';
 
+//Actions
+import { setCurrentUser } from './redux/user/user.action';
+
 //Styles
 import './App.css';
-import React from 'react';
 
-class App extends React.Component<IProps, IState> {
-  constructor(props: IProps) {
-    super(props);
-
-    this.state = {
-      currentUser: null,
-    };
-  }
-
+class App extends React.Component<ConnectedProps<typeof connector | IProps>> {
   unSubscribeFromAuth: Function | null = null;
 
   componentDidMount() {
+    const { setCurrentUser } = this.props;
+
     this.unSubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
         userRef!.onSnapshot((snapShot) => {
-          this.setState({
+          setCurrentUser({
             id: snapShot.id,
             ...snapShot.data(),
           });
         });
       }
-      this.setState({ currentUser: userAuth });
+      setCurrentUser(userAuth!);
     });
   }
 
@@ -54,7 +55,7 @@ class App extends React.Component<IProps, IState> {
     console.log(this.state);
     return (
       <>
-        <Header currentUser={this.state.currentUser} />
+        <Header />
         <Switch>
           <Route component={homepage} exact path="/" />
           <Route component={shoppage} exact path="/shop" />
@@ -66,4 +67,10 @@ class App extends React.Component<IProps, IState> {
   }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch: typeof store.dispatch) => ({
+  setCurrentUser: (user: IUser | User) => dispatch(setCurrentUser(user)),
+});
+
+const connector = connect(null, mapDispatchToProps);
+
+export default connector(App);

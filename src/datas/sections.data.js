@@ -2,7 +2,7 @@
 
 const SECTIONS_DATA = [
     {
-        title: 'hats',
+        title: 'Hats',
         imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
         // imageUrl: 'images/hats.png', // local file in public/images/
         size: '',

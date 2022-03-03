@@ -6,3 +6,10 @@ export interface IState extends firebase.firestore.DocumentData {
   id?: string;
   currentUser: User | null;
 }
+
+export interface IUser{
+    id : string;
+    createdAt? : Date;
+    displayName? : String;
+    email? : String;
+}
