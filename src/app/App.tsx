@@ -1,31 +1,29 @@
 //Setup
-import React from 'react';
-import { connect, ConnectedProps } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
-import store from './redux/store';
+import React from "react";
+import { connect, ConnectedProps } from "react-redux";
+import { Route, Switch } from "react-router-dom";
+import store from "../redux/store/store";
 
 //Firebase
-import { auth } from './firebase/firebase.utils';
-import { createUserProfileDocument } from './firebase/firebase.utils';
+import { auth } from "../firebase/firebase.utils";
+import { createUserProfileDocument } from "../firebase/firebase.utils";
 
 //Interface
-import { IProps } from './interfaces/app.interface';
-import { IUser } from './interfaces/app.interface';
-import { User } from '@firebase/auth-types';
+import { IProps, IUser } from "./app.interface";
 
 //Pages
-import homepage from './pages/homepage/homepage.component';
-import shoppage from './pages/shop/shop.component';
-import signpage from './pages/signpage/signpage.component';
+import homepage from "../pages/homepage/homepage.component";
+import shoppage from "../pages/shop/shop.component";
+import signpage from "../pages/signpage/signpage.component";
 
 //Component
-import Header from './components/Header/Header.component';
+import Header from "../components/Header/Header.component";
 
 //Actions
-import { setCurrentUser } from './redux/user/user.action';
+import { setCurrentUser } from "../redux/user/user.action";
 
 //Styles
-import './App.css';
+import "./App.css";
 
 class App extends React.Component<ConnectedProps<typeof connector | IProps>> {
   unSubscribeFromAuth: Function | null = null;
@@ -34,7 +32,8 @@ class App extends React.Component<ConnectedProps<typeof connector | IProps>> {
     const { setCurrentUser } = this.props;
 
     this.unSubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
+      console.log(userAuth);
+        if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
         userRef!.onSnapshot((snapShot) => {
           setCurrentUser({
@@ -43,7 +42,7 @@ class App extends React.Component<ConnectedProps<typeof connector | IProps>> {
           });
         });
       }
-      setCurrentUser(userAuth!);
+      setCurrentUser(userAuth as null);
     });
   }
 
@@ -68,7 +67,7 @@ class App extends React.Component<ConnectedProps<typeof connector | IProps>> {
 }
 
 const mapDispatchToProps = (dispatch: typeof store.dispatch) => ({
-  setCurrentUser: (user: IUser | User) => dispatch(setCurrentUser(user)),
+  setCurrentUser: (user: IUser | null) => dispatch(setCurrentUser(user)),
 });
 
 const connector = connect(null, mapDispatchToProps);

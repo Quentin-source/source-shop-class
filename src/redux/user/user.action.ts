@@ -1,8 +1,7 @@
-import { User } from "@firebase/auth-types";
-import { IUser } from "../../interfaces/app.interface";
+import { IUser } from "../../app/app.interface";
 
 
-export const setCurrentUser = (user : IUser | User) => ({
+export const setCurrentUser = (user : IUser | null) => ({
   type: 'SET_CURRENT_USER',
   payload: user,
 });
