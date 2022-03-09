@@ -1,10 +1,12 @@
+import { FC } from "react";
 import { ReactComponent as ShoppingIcon } from "../../assets/images/shopping-bag.svg";
+import { IProps } from "./Cart-icon.interface";
 
 import "./Cart-icon.styles.scss";
 
-const CartIcon = () => {
+const CartIcon : FC<IProps> = (props : IProps) => {
   return (
-    <div className="cart-icon">
+    <div onClick={props.onClick} className="cart-icon">
       <ShoppingIcon className="shopping-icon" />
       <span className="item-count">0</span>
     </div>

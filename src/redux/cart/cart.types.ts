@@ -1,0 +1,5 @@
+export const cartActionTypes = {
+  SHOW_DROP_CART: "SHOW_DROP_CART",
+  HIDE_DROP_CART: "HIDE_DROP_CART",
+  TOGGLE_DROP_CART: "TOGGLE_DROP_CART",
+};

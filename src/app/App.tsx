@@ -2,7 +2,6 @@
 import React from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
-import store from "../redux/store/store";
 
 //Firebase
 import { auth } from "../firebase/firebase.utils";
@@ -10,7 +9,7 @@ import { createUserProfileDocument } from "../firebase/firebase.utils";
 
 //Interface
 import { IProps, IUser } from "./app.interface";
-import { IRootReducer } from "../redux/reducer.interface";
+import { IRootReducer, IDispatchAction } from "../redux/reducer.interface";
 
 //Pages
 import homepage from "../pages/homepage/homepage.component";
@@ -74,7 +73,7 @@ const mapStateToProps = ({ user }: IRootReducer) => ({
   currentUser: user.currentUser,
 });
 
-const mapDispatchToProps = (dispatch: typeof store.dispatch) => ({
+const mapDispatchToProps = (dispatch: IDispatchAction) => ({
   setCurrentUser: (user: IUser | null) => dispatch(setCurrentUser(user)),
 });
 

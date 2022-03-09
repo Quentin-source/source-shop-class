@@ -1,9 +1,9 @@
 //Setup
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 
 //Interface
-import { IRootReducer } from "../../redux/reducer.interface";
+import { IRootReducer, IDispatchAction } from "../../redux/reducer.interface";
 import { IProps } from "./Header.interface";
 
 //Firebase
@@ -11,6 +11,10 @@ import { auth } from "../../firebase/firebase.utils";
 
 //Components
 import CartIcon from "../Cart-icon/Cart-icon.component";
+import CartDropDown from "../Cart-dropdown/Cart-dropdown.component";
+
+//Action
+import { toggleDropCart } from "../../redux/cart/cart.action";
 
 //Assets
 import { ReactComponent as Logo } from "../../assets/images/crown.svg";
@@ -18,7 +22,11 @@ import { ReactComponent as Logo } from "../../assets/images/crown.svg";
 //Styles
 import "./Header.styles.scss";
 
-const Header = ({ currentUser }: IProps) => {
+const Header = ({
+  currentUser,
+  cartStatus,
+  toggleDropCart,
+}: ConnectedProps<typeof connector> & IProps) => {
   return (
     <div className="header">
       <Link className="logo-container" to="/">
@@ -40,14 +48,22 @@ const Header = ({ currentUser }: IProps) => {
             SIGN IN
           </Link>
         )}
-        <CartIcon />
+        <CartIcon onClick={toggleDropCart} />
       </div>
+      {cartStatus && <CartDropDown />}
     </div>
   );
 };
 
 const mapStateToProps = (state: IRootReducer) => ({
   currentUser: state.user.currentUser,
+  cartStatus: state.cart.hidden,
 });
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = (dispatch: IDispatchAction) => ({
+  toggleDropCart: () => dispatch(toggleDropCart()),
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default connector(Header);
