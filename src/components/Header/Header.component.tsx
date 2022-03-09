@@ -1,21 +1,24 @@
 //Setup
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 //Interface
-import { IRootReducer } from '../../redux/reducer.interface';
-import { IProps } from './Header.interface';
+import { IRootReducer } from "../../redux/reducer.interface";
+import { IProps } from "./Header.interface";
 
 //Firebase
-import { auth } from '../../firebase/firebase.utils';
+import { auth } from "../../firebase/firebase.utils";
+
+//Components
+import CartIcon from "../Cart-icon/Cart-icon.component";
 
 //Assets
-import { ReactComponent as Logo } from '../../assets/images/crown.svg';
+import { ReactComponent as Logo } from "../../assets/images/crown.svg";
 
 //Styles
-import './Header.styles.scss';
+import "./Header.styles.scss";
 
-const Header = ({currentUser}: IProps) => {
+const Header = ({ currentUser }: IProps) => {
   return (
     <div className="header">
       <Link className="logo-container" to="/">
@@ -24,6 +27,9 @@ const Header = ({currentUser}: IProps) => {
       <div className="options">
         <Link className="option" to="/shop">
           SHOP
+        </Link>
+        <Link className="option" to="/contact">
+          CONTACT
         </Link>
         {currentUser ? (
           <div className="option" onClick={() => auth.signOut()}>
@@ -34,9 +40,7 @@ const Header = ({currentUser}: IProps) => {
             SIGN IN
           </Link>
         )}
-        <Link className="option" to="/contact">
-          CONTACT
-        </Link>
+        <CartIcon />
       </div>
     </div>
   );
