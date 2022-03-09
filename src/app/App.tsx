@@ -1,7 +1,7 @@
 //Setup
 import React from "react";
 import { connect, ConnectedProps } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import store from "../redux/store/store";
 
 //Firebase
@@ -10,11 +10,12 @@ import { createUserProfileDocument } from "../firebase/firebase.utils";
 
 //Interface
 import { IProps, IUser } from "./app.interface";
+import { IRootReducer } from "../redux/reducer.interface";
 
 //Pages
 import homepage from "../pages/homepage/homepage.component";
 import shoppage from "../pages/shop/shop.component";
-import signpage from "../pages/signpage/signpage.component";
+import Signpage from "../pages/signpage/signpage.component";
 
 //Component
 import Header from "../components/Header/Header.component";
@@ -24,25 +25,24 @@ import { setCurrentUser } from "../redux/user/user.action";
 
 //Styles
 import "./App.css";
+import { Console } from "console";
 
-class App extends React.Component<ConnectedProps<typeof connector | IProps>> {
+class App extends React.Component<ConnectedProps<typeof connector> & IProps> {
   unSubscribeFromAuth: Function | null = null;
 
   componentDidMount() {
     const { setCurrentUser } = this.props;
 
     this.unSubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-      console.log(userAuth);
-        if (userAuth) {
+      if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
         userRef!.onSnapshot((snapShot) => {
           setCurrentUser({
             id: snapShot.id,
             ...snapShot.data(),
-          });
+          } as IUser);
         });
-      }
-      setCurrentUser(userAuth as null);
+      } else setCurrentUser(null);
     });
   }
 
@@ -51,14 +51,24 @@ class App extends React.Component<ConnectedProps<typeof connector | IProps>> {
   }
 
   render() {
-    console.log(this.state);
     return (
       <>
         <Header />
         <Switch>
           <Route component={homepage} exact path="/" />
           <Route component={shoppage} exact path="/shop" />
-          <Route component={signpage} exact path="/sign" />
+          <Route
+            exact
+            path="/sign"
+            render={() => {
+              console.log(this.props.currentUser);
+              return this.props.currentUser ? (
+                <Redirect to="/" />
+              ) : (
+                <Signpage />
+              );
+            }}
+          />
           <Route component={homepage} />
         </Switch>
       </>
@@ -66,10 +76,14 @@ class App extends React.Component<ConnectedProps<typeof connector | IProps>> {
   }
 }
 
+const mapStateToProps = ({ user }: IRootReducer) => ({
+  currentUser: user.currentUser,
+});
+
 const mapDispatchToProps = (dispatch: typeof store.dispatch) => ({
   setCurrentUser: (user: IUser | null) => dispatch(setCurrentUser(user)),
 });
 
-const connector = connect(null, mapDispatchToProps);
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
 export default connector(App);
