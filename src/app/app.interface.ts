@@ -7,7 +7,3 @@ export interface IUser {
     displayName: String;
     email: String;
 }
-
-export interface IState {
-  currentUser: IUser | null;
-}

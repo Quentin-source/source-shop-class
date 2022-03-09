@@ -25,7 +25,6 @@ import { setCurrentUser } from "../redux/user/user.action";
 
 //Styles
 import "./App.css";
-import { Console } from "console";
 
 class App extends React.Component<ConnectedProps<typeof connector> & IProps> {
   unSubscribeFromAuth: Function | null = null;
@@ -60,14 +59,9 @@ class App extends React.Component<ConnectedProps<typeof connector> & IProps> {
           <Route
             exact
             path="/sign"
-            render={() => {
-              console.log(this.props.currentUser);
-              return this.props.currentUser ? (
-                <Redirect to="/" />
-              ) : (
-                <Signpage />
-              );
-            }}
+            render={() =>
+              this.props.currentUser ? <Redirect to="/" /> : <Signpage />
+            }
           />
           <Route component={homepage} />
         </Switch>
