@@ -2,7 +2,7 @@ import { IAction } from "../reducer.interface";
 import { cartActionTypes } from "./cart.types";
 
 const initialState = {
-  hidden: false,
+  cartStatus: false,
 };
 
 const cartReducer = (state = initialState, action: IAction) => {
@@ -10,17 +10,17 @@ const cartReducer = (state = initialState, action: IAction) => {
     case cartActionTypes.SHOW_DROP_CART:
       return {
         ...state,
-        hidden: false,
+        cartStatus: false,
       };
     case cartActionTypes.HIDE_DROP_CART:
       return {
         ...state,
-        hidden: true,
+        cartStatus: true,
       };
     case cartActionTypes.TOGGLE_DROP_CART:
       return {
         ...state,
-        hidden: !state.hidden,
+        cartStatus: !state.cartStatus,
       };
     default:
       return state;

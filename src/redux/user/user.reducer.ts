@@ -1,8 +1,9 @@
 import { IAction } from "../reducer.interface";
+import { IUser } from "../../app/app.interface";
 import { userActionTypes } from "./user.types";
 
 const initialState = {
-  currentUser: null,
+  currentUser: null as IUser | null,
 };
 
 const userReducer = (state = initialState, action: IAction) => {
